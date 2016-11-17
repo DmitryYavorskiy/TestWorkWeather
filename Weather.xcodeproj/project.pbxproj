@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4CA507E21DDD230C0044DA33 /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA507E11DDD230C0044DA33 /* DetailController.swift */; };
 		4CD8E3B61DDB8BA20020FC75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8E3B51DDB8BA20020FC75 /* AppDelegate.swift */; };
 		4CD8E3BB1DDB8BA20020FC75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CD8E3B91DDB8BA20020FC75 /* Main.storyboard */; };
 		4CD8E3BD1DDB8BA20020FC75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CD8E3BC1DDB8BA20020FC75 /* Assets.xcassets */; };
@@ -28,7 +29,6 @@
 		4CD8E3F41DDB976E0020FC75 /* CityGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8E3F31DDB976E0020FC75 /* CityGroup.swift */; };
 		4CD8E3F81DDBA7140020FC75 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8E3F71DDBA7140020FC75 /* CustomCell.swift */; };
 		4CD8E3FB1DDBC99E0020FC75 /* AddCityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8E3FA1DDBC99E0020FC75 /* AddCityController.swift */; };
-		E1CC3A981DDC970A00963D8D /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CC3A971DDC970A00963D8D /* City.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4CA507E11DDD230C0044DA33 /* DetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailController.swift; path = "View Controllers/Detail/DetailController.swift"; sourceTree = "<group>"; };
 		4CD8E3B21DDB8BA20020FC75 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD8E3B51DDB8BA20020FC75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CD8E3BA1DDB8BA20020FC75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,7 +67,6 @@
 		4CD8E3F31DDB976E0020FC75 /* CityGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CityGroup.swift; path = "Data Base/CityGroup.swift"; sourceTree = "<group>"; };
 		4CD8E3F71DDBA7140020FC75 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomCell.swift; path = "Custom Cell/CustomCell.swift"; sourceTree = "<group>"; };
 		4CD8E3FA1DDBC99E0020FC75 /* AddCityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddCityController.swift; path = "View Controllers/Add City/AddCityController.swift"; sourceTree = "<group>"; };
-		E1CC3A971DDC970A00963D8D /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = City.swift; path = "Data Base/City.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CA507E01DDD22EF0044DA33 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				4CA507E11DDD230C0044DA33 /* DetailController.swift */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
 		4CD8E3A91DDB8BA20020FC75 = {
 			isa = PBXGroup;
 			children = (
@@ -107,11 +115,11 @@
 				4CD8E3EE1DDB96430020FC75 /* View Controllers */,
 				4CD8E3F21DDB97590020FC75 /* Data Base */,
 				4CD8E3F61DDBA6E40020FC75 /* Custom Cell */,
+				4CD8E3D51DDB8D1C0020FC75 /* Data Requset */,
 				4CD8E3B91DDB8BA20020FC75 /* Main.storyboard */,
 				4CD8E3BC1DDB8BA20020FC75 /* Assets.xcassets */,
 				4CD8E3BE1DDB8BA20020FC75 /* LaunchScreen.storyboard */,
 				4CD8E3C11DDB8BA20020FC75 /* Info.plist */,
-				4CD8E3D51DDB8D1C0020FC75 /* Data Requset */,
 				4CD8E3E41DDB95920020FC75 /* Frameworks */,
 			);
 			path = Weather;
@@ -145,6 +153,7 @@
 			children = (
 				4CD8E3EF1DDB969A0020FC75 /* Main */,
 				4CD8E3F91DDBC9650020FC75 /* Add City */,
+				4CA507E01DDD22EF0044DA33 /* Detail */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -160,7 +169,6 @@
 		4CD8E3F21DDB97590020FC75 /* Data Base */ = {
 			isa = PBXGroup;
 			children = (
-				E1CC3A971DDC970A00963D8D /* City.swift */,
 				4CD8E3F31DDB976E0020FC75 /* CityGroup.swift */,
 			);
 			name = "Data Base";
@@ -280,10 +288,10 @@
 				4CD8E3DC1DDB8D2E0020FC75 /* APIRequest.swift in Sources */,
 				4CD8E3F41DDB976E0020FC75 /* CityGroup.swift in Sources */,
 				4CD8E3B61DDB8BA20020FC75 /* AppDelegate.swift in Sources */,
+				4CA507E21DDD230C0044DA33 /* DetailController.swift in Sources */,
 				4CD8E3FB1DDBC99E0020FC75 /* AddCityController.swift in Sources */,
 				4CD8E3E11DDB8D2E0020FC75 /* URLConfigurator.swift in Sources */,
 				4CD8E3DD1DDB8D2E0020FC75 /* DataMask.swift in Sources */,
-				E1CC3A981DDC970A00963D8D /* City.swift in Sources */,
 				4CD8E3F11DDB96C20020FC75 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

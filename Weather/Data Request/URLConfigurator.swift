@@ -17,12 +17,18 @@ struct URLConfigurator {
         switch methodName {
         case MethodName.getGroupById:
             
-            let array = dictionaryData.value(forKey: "idArray") as! [String]
-            var ar = ["689558", "703448"]
-            ar.append(contentsOf: array)
-            let stringC = ar.joined(separator: ",")
+            var array = dictionaryData.value(forKey: "idArray") as! [Int]
+            var dynamicArr = [689558, 703448]
             
-            let urlString = "\(API_URL)group?id=\(stringC)&units=metric&appid=\(APPID)"
+            if array.count > 2 {
+                let needItem = array[2..<array.count]
+                dynamicArr.append(contentsOf: needItem)
+            }
+            
+            let stringArray = dynamicArr.map { String($0) }
+            let stringCurrent = stringArray.joined(separator: ",")
+            
+            let urlString = "\(API_URL)group?id=\(stringCurrent)&units=metric&appid=\(APPID)"
             
             return (urlString, MethodHttp.get.rawValue)
             

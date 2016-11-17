@@ -94,14 +94,50 @@
                                 <segue destination="rjB-tL-ZcN" kind="presentation" identifier="segueToAdd" id="S1D-1q-c4E"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="l3p-9H-Xu1">
+                            <connections>
+                                <action selector="editTableAction:" destination="BYZ-38-t0r" id="BiF-ay-1vV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="l3p-9H-Xu1" id="i80-dx-pTA"/>
                         <outlet property="tableCity" destination="CXR-op-cr8" id="JeL-9y-3Vg"/>
+                        <segue destination="X0w-8q-NR7" kind="show" identifier="segueToDetail" id="Z4r-B0-3fb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="324.375" y="-477.46478873239437"/>
+        </scene>
+        <!--Detail Controller-->
+        <scene sceneID="A8w-7Z-Lic">
+            <objects>
+                <viewController id="X0w-8q-NR7" customClass="DetailController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pwK-Fk-uKs"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mrj-ZT-HMW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PLG-eY-U2b">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jgQ-zi-i3H">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="jeg-pl-tPE">
+                            <rect key="frame" x="73" y="7" width="175" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="3 days"/>
+                                <segment title="7 days"/>
+                            </segments>
+                        </segmentedControl>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1KM-RJ-FFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-414.375" y="194.36619718309859"/>
         </scene>
         <!--Add City Controller-->
         <scene sceneID="LKy-7A-wlb">
@@ -123,7 +159,7 @@
                                         <rect key="frame" x="0.0" y="1" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AhT-b3-jlL" id="aAP-2z-0OT">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF7-hV-Glb">

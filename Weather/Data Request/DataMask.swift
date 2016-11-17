@@ -69,14 +69,22 @@ struct DataMask {
             
             let idCity = dictionary.value(forKey: "id") as! Int
             let nameCity = dictionary.value(forKey: "name") as! String
+            let iconCity = dictionary.value(forKeyPath: "weather.icon") as! NSArray
+            let tempCity = dictionary.value(forKeyPath: "main.temp") as! Double
+            let humidityCity = dictionary.value(forKeyPath: "main.humidity") as! Int
+            let windSpeedCity = dictionary.value(forKeyPath: "wind.speed") as! Double
             
-            let city = City()
-            city.id = "\(idCity)"
-            city.name = nameCity
+            let cityGroup = CityGroup()
+            cityGroup.id = idCity
+            cityGroup.name = nameCity
+            cityGroup.icon = iconCity[0] as! String
+            cityGroup.temp = Int(tempCity)
+            cityGroup.humidity = humidityCity
+            cityGroup.windSpeed = windSpeedCity
             
             try! realm.write {
-                realm.add(city)
-                print("Added \(city.name) to Realm City")
+                realm.add(cityGroup)
+                print("Added \(cityGroup.name) to Realm City")
             }
             
             completionHandler(true, ["" : ""])

@@ -12,7 +12,9 @@ import RealmSwift
 class MainViewController: UIViewController {
     
     @IBOutlet var tableCity: UITableView?
+    @IBOutlet var editButton: UIBarButtonItem?
     
+    var cityIdArray = Array<Int>()
     var cityNameArray = Array<String>()
     var cityIconArray = Array<String>()
     var cityTempArray = Array<Int>()
@@ -22,21 +24,49 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadApi()
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let realm = try! Realm()
+        let allGroup = realm.objects(CityGroup.self)
+        print(allGroup)
     }
+    
+    // MARK: - Edit Table Action
 
+    @IBAction func editTableAction(_ sender: Any) {
+        
+        if tableCity?.isEditing == true {
+            tableCity?.setEditing(false, animated: true)
+            editButton?.title = "Edit"
+        } else {
+            tableCity?.setEditing(true, animated: true)
+            editButton?.title = "Done"
+        }
+    }
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
+        
         if segue.identifier == "segueToAdd" {
             let addCity: AddCityController = segue.destination as! AddCityController
             addCity.cityDelegate = self
+        } else if segue.identifier == "segueToDetail" {
+            
+            let indexPath = sender as! IndexPath
+            
+            let detail: DetailController = segue.destination as! DetailController
+            
+            detail.navBarTitle = cityNameArray[indexPath.row]
+            detail.cityId = cityIdArray[indexPath.row]
         }
     }
 }
@@ -46,7 +76,7 @@ class MainViewController: UIViewController {
 extension MainViewController: AddCityDelegate {
     
     func updateCityList() {
-        loadApi()
+        loadData()
     }
 }
 
@@ -57,9 +87,9 @@ extension MainViewController {
     func loadApi() {
         let realm = try! Realm()
         
-        let city = realm.objects(City.self)
+        let city = realm.objects(CityGroup.self)
         
-        let cityIdArray = city.value(forKey: "id") as! [String]
+        let cityIdArray = city.value(forKey: "id") as! [Int]
         
         DataRequest.getData(dictionaryData: ["idArray" : cityIdArray], dictHttpBody: nil, methodName: MethodName.getGroupById, completionHandler: { (succes, info, errorCode) in
             self.loadData()
@@ -71,6 +101,7 @@ extension MainViewController {
         let realm = try! Realm()
         let allCityGroup = realm.objects(CityGroup.self)
         
+        cityIdArray = allCityGroup.value(forKey: "id") as! Array
         cityNameArray = allCityGroup.value(forKey: "name") as! Array
         cityIconArray = allCityGroup.value(forKey: "icon") as! Array
         cityTempArray = allCityGroup.value(forKey: "temp") as! Array
@@ -102,4 +133,47 @@ extension MainViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        if indexPath.row == 0 || indexPath.row == 1 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            
+            let realm = try! Realm()
+            
+            try! realm.write {
+                
+                let deleteGroup = realm.objects(CityGroup.self).filter("id == %@", cityIdArray[indexPath.row])
+                realm.delete(deleteGroup)
+            }
+            
+            cityIdArray.remove(at: indexPath.row)
+            cityNameArray.remove(at: indexPath.row)
+            cityIconArray.remove(at: indexPath.row)
+            cityTempArray.remove(at: indexPath.row)
+            cityHumidityArray.remove(at: indexPath.row)
+            cityWindSpeedArray.remove(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
 }
+
+//MARK: - Table Delegate
+
+extension MainViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        self.performSegue(withIdentifier: "segueToDetail", sender: indexPath)
+    }
+}
+
