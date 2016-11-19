@@ -9,9 +9,9 @@
 import Foundation
 import RealmSwift
 
-struct DataMask {
+public struct DataMask {
     
-    static func parseData(dictionary: NSDictionary, type: MethodName, completionHandler:((_ succes: Bool, _ info: NSDictionary) -> Void)!)  {
+    public static func parseData(dictionary: NSDictionary, type: MethodName, completionHandler:((_ succes: Bool, _ info: NSDictionary) -> Void)!)  {
         
         switch type {
         case MethodName.getGroupById:
@@ -89,8 +89,82 @@ struct DataMask {
             
             completionHandler(true, ["" : ""])
             
+        case MethodName.getDaysWeather:
+            
+            let realm = try! Realm()
+            
+            let idCity = dictionary.value(forKeyPath: "city.id") as! Int
+            
+            let group = realm.objects(CityWeather.self).filter("id == \(idCity)")
+            
+            if group.count > 0 {
+                realm.beginWrite()
+                realm.delete(group)
+                try! realm.commitWrite()
+                
+                addDayWeather(dict: dictionary)
+            } else {
+                addDayWeather(dict: dictionary)
+            }
+            
+            completionHandler(true, ["" : ""])
+            
         default:
             print("error")
+        }
+    }
+    
+    private static func addDayWeather(dict: NSDictionary) {
+        
+        let idCity = dict.value(forKeyPath: "city.id") as! Int
+        let nameCity = dict.value(forKeyPath: "city.name") as! String
+        
+        let cnt = dict.value(forKey: "cnt") as! Int
+        
+        let dt = dict.value(forKeyPath: "list.dt") as! NSArray
+        let dayTemp = dict.value(forKeyPath: "list.temp.day") as! NSArray
+        let minTemp = dict.value(forKeyPath: "list.temp.min") as! NSArray
+        let maxTemp = dict.value(forKeyPath: "list.temp.max") as! NSArray
+        let nightTemp = dict.value(forKeyPath: "list.temp.night") as! NSArray
+        let eveTemp = dict.value(forKeyPath: "list.temp.eve") as! NSArray
+        let mornTemp = dict.value(forKeyPath: "list.temp.morn") as! NSArray
+        let pressure = dict.value(forKeyPath: "list.pressure") as! NSArray
+        let humidity = dict.value(forKeyPath: "list.humidity") as! NSArray
+        let icon = dict.value(forKeyPath: "list.weather.icon") as! NSArray
+        let speedWind = dict.value(forKeyPath: "list.speed") as! NSArray
+        
+        let realm = try! Realm()
+        
+        let cityWeather = CityWeather()
+        
+        cityWeather.id = idCity
+        cityWeather.name = nameCity
+        
+        var weather = Weather()
+        
+        for i in 0..<cnt {
+            
+            let currIcon = icon[i] as! NSArray
+            let dayWeek = CurrentDayWeek.getDayOfWeek(dt[i] as! Int)
+            
+            weather = Weather()
+            weather.dt = dayWeek != nil ? dayWeek! : ""
+            weather.dayTemp = Int(dayTemp[i] as! Double)
+            weather.minTemp = Int(minTemp[i] as! Double)
+            weather.maxTemp = Int(maxTemp[i] as! Double)
+            weather.nightTemp = Int(nightTemp[i] as! Double)
+            weather.eveTemp = Int(eveTemp[i] as! Double)
+            weather.mornTemp = Int(mornTemp[i] as! Double)
+            weather.pressure = pressure[i] as! Double
+            weather.humidity = humidity[i] as! Int
+            weather.icon = currIcon[0] as! String
+            weather.speedWind = speedWind[i] as! Double
+            cityWeather.list.append(weather)
+        }
+        
+        try! realm.write {
+            realm.add(cityWeather)
+            print("Added \(cityWeather.name) to Realm City")
         }
     }
 }

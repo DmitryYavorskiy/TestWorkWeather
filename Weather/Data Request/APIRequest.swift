@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-struct APIRequest {
+public struct APIRequest {
     
-    static func getRequest(urlString: String, methodHttp: String, post: String?, completionHandler:((_ succes: Bool, _ info: NSDictionary) -> Void)!) {
+    public static func getRequest(urlString: String, methodHttp: String, post: String?, completionHandler:((_ succes: Bool, _ info: NSDictionary) -> Void)!) {
         
         let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)
         let url = NSURL(string: encodedString!)

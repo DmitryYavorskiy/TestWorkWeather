@@ -19,8 +19,7 @@ class MainViewController: UIViewController {
     var cityIconArray = Array<String>()
     var cityTempArray = Array<Int>()
     var cityHumidityArray = Array<Int>()
-    var cityWindSpeedArray = Array<Double>()
-    
+    var cityWindSpeedArray = Array<Double>()    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +29,9 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let realm = try! Realm()
-        let allGroup = realm.objects(CityGroup.self)
-        print(allGroup)
+        /*let realm = try! Realm()
+        let allGroup = realm.objects(CityWeather.self)
+        print(allGroup)*/
     }
     
     // MARK: - Edit Table Action
@@ -65,7 +64,7 @@ class MainViewController: UIViewController {
             
             let detail: DetailController = segue.destination as! DetailController
             
-            detail.navBarTitle = cityNameArray[indexPath.row]
+            detail.currentCityTitle = cityNameArray[indexPath.row]
             detail.cityId = cityIdArray[indexPath.row]
         }
     }

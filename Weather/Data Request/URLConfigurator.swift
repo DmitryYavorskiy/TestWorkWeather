@@ -8,11 +8,11 @@
 
 import Foundation
 
-typealias UrlConfig = (urlString: String?, methodHttp: String)
+public typealias UrlConfig = (urlString: String?, methodHttp: String)
 
-struct URLConfigurator {
+public struct URLConfigurator {
     
-    static func configureUrl(dictionaryData: NSDictionary, dictHttpBody: NSDictionary?, methodName: MethodName) -> UrlConfig {
+    public static func configureUrl(dictionaryData: NSDictionary, dictHttpBody: NSDictionary?, methodName: MethodName) -> UrlConfig {
         
         switch methodName {
         case MethodName.getGroupById:
@@ -28,7 +28,7 @@ struct URLConfigurator {
             let stringArray = dynamicArr.map { String($0) }
             let stringCurrent = stringArray.joined(separator: ",")
             
-            let urlString = "\(API_URL)group?id=\(stringCurrent)&units=metric&appid=\(APPID)"
+            let urlString = "\(API_URL)group?id=\(stringCurrent)&units=\(TemperatyreType)&appid=\(APPID)"
             
             return (urlString, MethodHttp.get.rawValue)
             
@@ -45,6 +45,14 @@ struct URLConfigurator {
             let city = dictionaryData.value(forKey: "city") as! String
             
             let urlString = "\(API_URL)weather?q=\(city)&units=metric&appid=\(APPID)"
+            
+            return (urlString, MethodHttp.get.rawValue)
+            
+        case MethodName.getDaysWeather:
+            
+            let id = dictionaryData.value(forKey: "id") as! Int
+            
+            let urlString = "\(API_URL)forecast/daily?id=\(id)&cnt=7&units=\(TemperatyreType)&appid=\(APPID)"
             
             return (urlString, MethodHttp.get.rawValue)
             

@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct InternetConnection {
+public struct InternetConnection {
     
-    static func checkInternetConnection() -> Bool {
+    public static func checkInternetConnection() -> Bool {
         
         let reachability = Reachability()!
         reachability.stopNotifier()

@@ -13,17 +13,18 @@ public enum MethodName: String {
     case getGroupById
     case getPalceAutocomplete
     case getPalceByName
+    case getDaysWeather
     case glc
 }
 
-enum MethodHttp: String {
+public enum MethodHttp: String {
     case get = "GET"
     case post = "POST"
 }
 
-struct DataRequest {
+public struct DataRequest {
     
-    static func getData(dictionaryData: NSDictionary, dictHttpBody: NSDictionary?, methodName: MethodName, completionHandler:((_ succes: Bool, _ info: NSDictionary, _ errorCode: Int) -> Void)!) {
+    public static func getData(dictionaryData: NSDictionary, dictHttpBody: NSDictionary?, methodName: MethodName, completionHandler:((_ succes: Bool, _ info: NSDictionary, _ errorCode: Int) -> Void)!) {
         
         let internetStatus = InternetConnection.checkInternetConnection()
         
