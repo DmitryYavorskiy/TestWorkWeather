@@ -19,11 +19,16 @@ class MainViewController: UIViewController {
     var cityIconArray = Array<String>()
     var cityTempArray = Array<Int>()
     var cityHumidityArray = Array<Int>()
-    var cityWindSpeedArray = Array<Double>()    
+    var cityWindSpeedArray = Array<Double>()
+    
+    var preloadView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
+        
+        preloadView = PreloaderView.preloaderView(view: self.view, indicator: true)
+        
+        loadApi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +89,9 @@ extension MainViewController: AddCityDelegate {
 extension MainViewController {
     
     func loadApi() {
+        
+        self.view.addSubview(preloadView)
+        
         let realm = try! Realm()
         
         let city = realm.objects(CityGroup.self)
@@ -91,7 +99,23 @@ extension MainViewController {
         let cityIdArray = city.value(forKey: "id") as! [Int]
         
         DataRequest.getData(dictionaryData: ["idArray" : cityIdArray], dictHttpBody: nil, methodName: MethodName.getGroupById, completionHandler: { (succes, info, errorCode) in
-            self.loadData()
+            
+            if errorCode == 200 {
+                
+                self.loadData()
+            } else {
+                
+                let alert = Alert.createAlert(error: errorCode)
+                
+                self.parent?.present(alert, animated: true, completion: nil)
+                
+                alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (action: UIAlertAction) in
+                    print("press Retry")
+                    self.loadApi()
+                }))
+                
+                self.loadData()
+            }
         })
     }
     
@@ -109,6 +133,7 @@ extension MainViewController {
         
         DispatchQueue.main.async {
             self.tableCity?.reloadData()
+            self.preloadView.removeFromSuperview()
         }
     }
 }

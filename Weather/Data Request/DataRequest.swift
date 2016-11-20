@@ -24,7 +24,7 @@ public enum MethodHttp: String {
 
 public struct DataRequest {
     
-    public static func getData(dictionaryData: NSDictionary, dictHttpBody: NSDictionary?, methodName: MethodName, completionHandler:((_ succes: Bool, _ info: NSDictionary, _ errorCode: Int) -> Void)!) {
+    public static func getData(dictionaryData: NSDictionary, dictHttpBody: NSDictionary?, methodName: MethodName, completionHandler:((_ succes: Bool, _ info: NSDictionary?, _ errorCode: Int) -> Void)!) {
         
         let internetStatus = InternetConnection.checkInternetConnection()
         
@@ -40,10 +40,12 @@ public struct DataRequest {
                     })
                 } else {
                     print("succes error")
+                    completionHandler(false, nil, 503)
                 }
             })
         } else {
-            print("internet Error")
+            print("succes error")
+            completionHandler(true, nil, 511)
         }
     }
 }

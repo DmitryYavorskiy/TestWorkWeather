@@ -11,19 +11,25 @@ import UIKit
 class AddCityController: UIViewController {
     
     @IBOutlet var tableAddCity: UITableView?
+    @IBOutlet var searchBar: UISearchBar?
     
     weak var cityDelegate: AddCityDelegate?
     var titlesArray = Array<String>()
+    
+    var preloadView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        preloadView = PreloaderView.preloaderView(view: self.view, indicator: true)
+        
+        searchBar?.becomeFirstResponder()
     }
     
     //MARK: - Cancel Add Action
 
     @IBAction func cancelAddAction(_ sender: UIButton) {
-        
+        self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -43,11 +49,17 @@ extension AddCityController: UISearchBarDelegate {
         //print("searchText \(searchText)")
         
         DataRequest.getData(dictionaryData: ["input" : searchText], dictHttpBody: nil, methodName: MethodName.getPalceAutocomplete, completionHandler:{ (succes, info, errorCode) in
+            print(errorCode)
             
-            self.titlesArray = info.value(forKey: "cityName") as! Array
-            
-            DispatchQueue.main.async {
-                self.tableAddCity?.reloadData()
+            if errorCode == 200 {
+                
+                self.titlesArray = info?.value(forKey: "cityName") as! Array
+                
+                DispatchQueue.main.async {
+                    self.tableAddCity?.reloadData()
+                }
+            } else {
+                self.titlesArray = ["Error connecting to the Internet"]
             }
         })
     }
@@ -80,11 +92,15 @@ extension AddCityController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         
         let currentCity = titlesArray[indexPath.row]
-        
+        self.view.addSubview(preloadView)
+        self.view.endEditing(true)
         DataRequest.getData(dictionaryData: ["city" : currentCity], dictHttpBody: nil, methodName: MethodName.getPalceByName, completionHandler: { (succes, info, errorCode) in
             
             if self.cityDelegate != nil {
                 self.cityDelegate!.updateCityList()
+            }
+            DispatchQueue.main.async {
+                self.preloadView.removeFromSuperview()
             }
             self.dismiss(animated: true, completion: nil)
         })

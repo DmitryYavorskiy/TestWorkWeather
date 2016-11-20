@@ -36,18 +36,18 @@ class DetailController: UIViewController {
     var humidityArray = Array<Int>()
     var speedWindArray = Array<Double>()
     
+    var preloadView = UIView()
     let selectColor = UIColor.clear
     let deselectColor = UIColor(red: 69/255, green: 68/255, blue: 65/255, alpha: 1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        /*DataRequest.getData(dictionaryData: ["id" : cityId], dictHttpBody: nil, methodName: MethodName.getDaysWeather, completionHandler: { (succes, info, errorCode) in
-            self.loadData(id: self.cityId)
-        })*/
+        
+        preloadView = PreloaderView.preloaderView(view: self.view, indicator: true)
+        
+        loadApi()
         mainTitle?.text = currentCityTitle
         
-        changeDayCount(segment!)
         
     }
     
@@ -65,6 +65,32 @@ class DetailController: UIViewController {
 //MARK: - Load Data
 
 extension DetailController {
+    
+    func loadApi() {
+        
+        self.view.addSubview(preloadView)
+        
+        DataRequest.getData(dictionaryData: ["id" : cityId], dictHttpBody: nil, methodName: MethodName.getDaysWeather, completionHandler: { (succes, info, errorCode) in
+            
+            if errorCode == 200 {
+                
+                self.changeDayCount(self.segment!)
+            } else {
+                
+                let alert = Alert.createAlert(error: errorCode)
+                
+                self.parent?.present(alert, animated: true, completion: nil)
+                
+                alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (action: UIAlertAction) in
+                    print("press Retry")
+                    self.loadApi()
+                }))
+                
+                self.changeDayCount(self.segment!)
+            }
+            
+        })
+    }
     
     func loadData(id: Int, index: Int) {
         
@@ -120,6 +146,7 @@ extension DetailController {
                 self.attributedTextCreate(index: 0)
                 self.tableDayCollection?.reloadData()
                 self.tableDayCollection?.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
+                self.preloadView.removeFromSuperview()
             }
         }
     }
@@ -187,5 +214,17 @@ extension DetailController: UICollectionViewDelegate {
         currentIndex = indexPath.row
         
         tableDayCollection?.reloadData()
+    }
+}
+
+//MARK: - CollectionView Delegate Flow Layout
+
+extension DetailController : UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+        let screenWidth = UIScreen.main.bounds.size.width
+        
+        return CGSize(width: screenWidth/4, height: screenWidth/4)
     }
 }

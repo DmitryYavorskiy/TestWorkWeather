@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +24,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="CXR-op-cr8">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cityCellid" id="Tqe-O0-WWB" customClass="CustomCell" customModule="Weather" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="320" height="80"/>
@@ -45,16 +46,17 @@
                                                         <constraint firstAttribute="height" constant="20" id="eIg-JW-NPV"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="16"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="1" green="0.50196078430000002" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyd-7e-zVU">
                                                     <rect key="frame" x="80" y="25" width="202" height="49"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="9hQ-pN-ide" firstAttribute="leading" secondItem="5P4-PZ-pdw" secondAttribute="trailing" constant="5" id="1kD-gk-8eA"/>
                                                 <constraint firstItem="Qyd-7e-zVU" firstAttribute="top" secondItem="9hQ-pN-ide" secondAttribute="bottom" id="9h2-57-YHC"/>
@@ -67,6 +69,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Qyd-7e-zVU" secondAttribute="trailing" constant="5" id="xmg-Ck-8KO"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="iconImage" destination="5P4-PZ-pdw" id="7j3-Mf-jom"/>
                                             <outlet property="subTitleText" destination="Qyd-7e-zVU" id="9Hm-CB-yoX"/>
@@ -80,7 +83,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.094117647058823528" green="0.13725490196078433" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="CXR-op-cr8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="LCU-36-mKS"/>
                             <constraint firstItem="CXR-op-cr8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="UQQ-Tv-zaG"/>
@@ -123,10 +126,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="D7K-qn-xUH">
-                                <rect key="frame" x="0.0" y="424" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="421" width="320" height="85"/>
                                 <color key="backgroundColor" red="0.094117647058823528" green="0.13725490196078433" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="t8r-aD-ktZ"/>
+                                    <constraint firstAttribute="width" secondItem="D7K-qn-xUH" secondAttribute="height" multiplier="64:17" id="buY-uA-4EW"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="9vL-bK-Kai">
                                     <size key="itemSize" width="80" height="80"/>
@@ -136,7 +139,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collCellid" id="ljc-Iy-9h6" customClass="CollectionViewCell" customModule="Weather" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="0.0" y="2.5" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -242,7 +245,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.094117647060000004" green="0.13725490200000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Mrj-ZT-HMW" firstAttribute="top" secondItem="D7K-qn-xUH" secondAttribute="bottom" id="327-fo-kid"/>
+                            <constraint firstItem="Mrj-ZT-HMW" firstAttribute="top" secondItem="D7K-qn-xUH" secondAttribute="bottom" constant="-2" id="327-fo-kid"/>
                             <constraint firstItem="0wQ-JB-Vnf" firstAttribute="top" secondItem="Gpa-dV-3Dl" secondAttribute="bottom" constant="30" id="Fbd-DR-fpm"/>
                             <constraint firstAttribute="trailing" secondItem="D7K-qn-xUH" secondAttribute="trailing" id="NWo-Rz-Jlj"/>
                             <constraint firstAttribute="trailing" secondItem="MhB-Tl-JJR" secondAttribute="trailing" constant="10" id="Oc7-mH-Zab"/>
@@ -260,7 +263,7 @@
                     <navigationItem key="navigationItem" id="jgQ-zi-i3H">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="jeg-pl-tPE">
-                            <rect key="frame" x="73" y="7" width="175" height="30"/>
+                            <rect key="frame" x="72.5" y="7" width="175" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="3 days"/>
@@ -297,8 +300,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="mUy-vT-scF">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
+                                <color key="backgroundColor" red="0.094117647058823528" green="0.13725490196078433" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addCellId" id="AhT-b3-jlL" customClass="CustomCell" customModule="Weather" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="320" height="50"/>
@@ -310,10 +313,11 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF7-hV-Glb">
                                                     <rect key="frame" x="15" y="10" width="295" height="29.5"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="16"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="1" green="0.50196078430000002" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="mF7-hV-Glb" secondAttribute="trailing" constant="10" id="Vex-yr-Qvn"/>
                                                 <constraint firstItem="mF7-hV-Glb" firstAttribute="top" secondItem="aAP-2z-0OT" secondAttribute="top" constant="10" id="fRN-hS-npr"/>
@@ -321,6 +325,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="mF7-hV-Glb" secondAttribute="bottom" constant="10" id="jf2-0r-KpY"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="titleText" destination="mF7-hV-Glb" id="w2x-pQ-dDD"/>
                                         </connections>
@@ -331,8 +336,9 @@
                                     <outlet property="delegate" destination="rjB-tL-ZcN" id="1dg-YZ-IE9"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="gLP-vV-R4u">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLP-vV-R4u">
                                 <rect key="frame" x="0.0" y="20" width="252" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="1" green="0.50196078430000002" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="barTintColor" red="0.27058823529999998" green="0.2666666667" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -341,7 +347,7 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cx-dh-mm6">
-                                <rect key="frame" x="252" y="20" width="68" height="44"/>
+                                <rect key="frame" x="252" y="20" width="68" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="68" id="UBN-Qw-YMv"/>
                                 </constraints>
@@ -365,11 +371,12 @@
                             <constraint firstAttribute="trailing" secondItem="mUy-vT-scF" secondAttribute="trailing" id="VTf-ek-OAb"/>
                             <constraint firstItem="mUy-vT-scF" firstAttribute="top" secondItem="1cx-dh-mm6" secondAttribute="bottom" id="WMg-Bd-q6B"/>
                             <constraint firstAttribute="trailing" secondItem="1cx-dh-mm6" secondAttribute="trailing" id="bKl-FT-HPK"/>
-                            <constraint firstItem="mUy-vT-scF" firstAttribute="top" secondItem="gLP-vV-R4u" secondAttribute="bottom" id="k5N-wg-NLF"/>
+                            <constraint firstItem="mUy-vT-scF" firstAttribute="top" secondItem="gLP-vV-R4u" secondAttribute="bottom" constant="1" id="k5N-wg-NLF"/>
                             <constraint firstItem="1cx-dh-mm6" firstAttribute="top" secondItem="aKc-rn-yHD" secondAttribute="bottom" id="lIL-7h-hpe"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="gLP-vV-R4u" id="uKB-6d-qLM"/>
                         <outlet property="searchDisplayController" destination="SFE-Kt-AD5" id="iB9-gI-s7k"/>
                         <outlet property="tableAddCity" destination="mUy-vT-scF" id="rK8-dM-sSt"/>
                     </connections>
