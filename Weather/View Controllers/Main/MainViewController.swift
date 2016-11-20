@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
         
         preloadView = PreloaderView.preloaderView(view: self.view, indicator: true)
         
-        loadApi()
+        loadApi()        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +37,12 @@ class MainViewController: UIViewController {
         /*let realm = try! Realm()
         let allGroup = realm.objects(CityWeather.self)
         print(allGroup)*/
+    }
+    
+    // MARK: - Refresh Action
+    
+    @IBAction func refreshAction(_ sender: UIBarButtonItem) {
+        loadApi()
     }
     
     // MARK: - Edit Table Action

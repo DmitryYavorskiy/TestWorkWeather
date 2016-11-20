@@ -24,6 +24,8 @@ class AddCityController: UIViewController {
         preloadView = PreloaderView.preloaderView(view: self.view, indicator: true)
         
         searchBar?.becomeFirstResponder()
+        let textFieldInsideSearchBar = searchBar?.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor(red: 255/255, green: 128/255, blue: 24/255, alpha: 1)
     }
     
     //MARK: - Cancel Add Action
@@ -49,7 +51,6 @@ extension AddCityController: UISearchBarDelegate {
         //print("searchText \(searchText)")
         
         DataRequest.getData(dictionaryData: ["input" : searchText], dictHttpBody: nil, methodName: MethodName.getPalceAutocomplete, completionHandler:{ (succes, info, errorCode) in
-            print(errorCode)
             
             if errorCode == 200 {
                 
@@ -60,6 +61,9 @@ extension AddCityController: UISearchBarDelegate {
                 }
             } else {
                 self.titlesArray = ["Error connecting to the Internet"]
+                DispatchQueue.main.async {
+                    self.tableAddCity?.reloadData()
+                }
             }
         })
     }
@@ -89,6 +93,7 @@ extension AddCityController: UITableViewDataSource {
 extension AddCityController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: false)
         
         let currentCity = titlesArray[indexPath.row]

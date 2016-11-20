@@ -18,6 +18,7 @@ class DetailController: UIViewController {
     @IBOutlet var dayWeekTitle: UILabel?
     @IBOutlet var mainImage: UIImageView?
     @IBOutlet var tempDataText: UILabel?
+    @IBOutlet var updateDate: UILabel?
     
     var currentCityTitle = String()
     var cityId = Int()
@@ -35,6 +36,7 @@ class DetailController: UIViewController {
     var pressureArray = Array<Double>()
     var humidityArray = Array<Int>()
     var speedWindArray = Array<Double>()
+    var lastUpdateDate = Array<String>()
     
     var preloadView = UIView()
     let selectColor = UIColor.clear
@@ -47,8 +49,6 @@ class DetailController: UIViewController {
         
         loadApi()
         mainTitle?.text = currentCityTitle
-        
-        
     }
     
     @IBAction func changeDayCount(_ sender: UISegmentedControl) {
@@ -60,6 +60,9 @@ class DetailController: UIViewController {
         }
     }
     
+    @IBAction func refreshAction(_ sender: UIBarButtonItem) {
+        loadApi()
+    }
 }
 
 //MARK: - Load Data
@@ -77,18 +80,8 @@ extension DetailController {
                 self.changeDayCount(self.segment!)
             } else {
                 
-                let alert = Alert.createAlert(error: errorCode)
-                
-                self.parent?.present(alert, animated: true, completion: nil)
-                
-                alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (action: UIAlertAction) in
-                    print("press Retry")
-                    self.loadApi()
-                }))
-                
                 self.changeDayCount(self.segment!)
             }
-            
         })
     }
     
@@ -106,10 +99,12 @@ extension DetailController {
         pressureArray = Array<Double>()
         humidityArray = Array<Int>()
         speedWindArray = Array<Double>()
+        lastUpdateDate = Array<String>()
         
         let realm = try! Realm()
         let allGroup = realm.objects(CityWeather.self).filter("id == \(id)")
         
+        lastUpdateDate = allGroup.value(forKey: "date") as! Array
         let weatherArray = allGroup.value(forKey: "list.dt") as! [[String]]
         let minArray = allGroup.value(forKey: "list.minTemp") as! [[Int]]
         let maxArray = allGroup.value(forKey: "list.maxTemp") as! [[Int]]
@@ -168,6 +163,7 @@ extension DetailController {
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         
         self.tempDataText?.attributedText = attrString
+        self.updateDate?.text = "Updated in: \(self.lastUpdateDate[0])"
     }
 }
 

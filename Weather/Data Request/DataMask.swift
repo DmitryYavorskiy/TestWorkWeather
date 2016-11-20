@@ -68,23 +68,29 @@ public struct DataMask {
             let realm = try! Realm()
             
             let idCity = dictionary.value(forKey: "id") as! Int
+            
+            let filterId = realm.objects(CityGroup.self).filter("id == \(idCity)")
+            
+            
             let nameCity = dictionary.value(forKey: "name") as! String
             let iconCity = dictionary.value(forKeyPath: "weather.icon") as! NSArray
             let tempCity = dictionary.value(forKeyPath: "main.temp") as! Double
             let humidityCity = dictionary.value(forKeyPath: "main.humidity") as! Int
             let windSpeedCity = dictionary.value(forKeyPath: "wind.speed") as! Double
             
-            let cityGroup = CityGroup()
-            cityGroup.id = idCity
-            cityGroup.name = nameCity
-            cityGroup.icon = iconCity[0] as! String
-            cityGroup.temp = Int(tempCity)
-            cityGroup.humidity = humidityCity
-            cityGroup.windSpeed = windSpeedCity
-            
-            try! realm.write {
-                realm.add(cityGroup)
-                print("Added \(cityGroup.name) to Realm City")
+            if filterId.count == 0 {
+                let cityGroup = CityGroup()
+                cityGroup.id = idCity
+                cityGroup.name = nameCity
+                cityGroup.icon = iconCity[0] as! String
+                cityGroup.temp = Int(tempCity)
+                cityGroup.humidity = humidityCity
+                cityGroup.windSpeed = windSpeedCity
+                
+                try! realm.write {
+                    realm.add(cityGroup)
+                    print("Added \(cityGroup.name) to Realm City")
+                }
             }
             
             completionHandler(true, ["" : ""])
@@ -133,12 +139,19 @@ public struct DataMask {
         let icon = dict.value(forKeyPath: "list.weather.icon") as! NSArray
         let speedWind = dict.value(forKeyPath: "list.speed") as! NSArray
         
+        let date = Date()
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm";
+        let currentDate = formatter.string(from: date)
+        
         let realm = try! Realm()
         
         let cityWeather = CityWeather()
         
         cityWeather.id = idCity
         cityWeather.name = nameCity
+        cityWeather.date = currentDate
         
         var weather = Weather()
         
